@@ -696,7 +696,10 @@ function iniciarAperturaCaja() {
     const duracion = 5000 + Math.random() * 1500;
     const inicio = performance.now();
     const tira = document.getElementById('caja-tira');
-    tira.style.transform = 'translateX(0px)';
+
+    // Activar will-change SOLO durante la animación (iOS Safari bug fix)
+    tira.style.willChange = 'transform';
+    tira.style.transform = 'translate3d(0, 0, 0)';
 
     function easeOutQuint(t) {
         return 1 - Math.pow(1 - t, 5);
@@ -710,7 +713,8 @@ function iniciarAperturaCaja() {
         const progresoSuave = easeOutQuint(progreso);
         const translateX = finalTranslate * progresoSuave;
 
-        tira.style.transform = `translateX(${translateX}px)`;
+        // translate3d en lugar de translateX: mantiene la capa GPU estable en iOS
+        tira.style.transform = `translate3d(${translateX}px, 0, 0)`;
 
         // Parpadeo del indicador al pasar por cada tarjeta
         const centroVentana = ventanaW / 2;
@@ -734,6 +738,14 @@ function iniciarAperturaCaja() {
         if (progreso < 1) {
             requestAnimationFrame(animar);
         } else {
+            // ---- FIX iOS Safari: forzar repintado antes de parar ----
+            // Quitar will-change provoca que iOS recomponga la capa
+            // con el contenido real (texto + emojis) en vez de negro.
+            tira.style.willChange = 'auto';
+            // Leer offsetHeight fuerza un reflow sincrónico que obliga
+            // a WebKit a renderizar el contenido antes del siguiente frame
+            void tira.offsetHeight;
+
             // Resaltar la tarjeta ganadora
             const items = document.querySelectorAll('.caja-item');
             if (items[winnerPos]) items[winnerPos].classList.add('ganador');
