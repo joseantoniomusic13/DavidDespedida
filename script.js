@@ -662,7 +662,7 @@ function iniciarAperturaCaja() {
     const duracion = 5000 + Math.random() * 1500;
     const inicio = performance.now();
     const tira = document.getElementById('caja-tira');
-    tira.style.transform = 'translateX(0px)';
+    tira.style.transform = 'translate3d(0, 0, 0)';
 
     function easeOutQuint(t) {
         return 1 - Math.pow(1 - t, 5);
@@ -676,7 +676,7 @@ function iniciarAperturaCaja() {
         const progresoSuave = easeOutQuint(progreso);
         const translateX = finalTranslate * progresoSuave;
 
-        tira.style.transform = `translateX(${translateX}px)`;
+        tira.style.transform = `translate3d(${translateX}px, 0, 0)`;
 
         // Parpadeo del indicador al pasar por cada tarjeta
         const centroVentana = ventanaW / 2;
