@@ -22,26 +22,12 @@
     <header id="hero">
 
         <!-- VIDEO A PANTALLA COMPLETA -->
-        <video
-            id="hero-video"
-            class="hero-video"
-            src="david-agent.mp4"
-            autoplay
-            muted
-            playsinline
-            onclick="replayHeroVideo()"
-            title="Click para volver a reproducir"
-        ></video>
+        <video id="hero-video" class="hero-video" src="david-agent.mp4" autoplay muted playsinline
+            onclick="replayHeroVideo()" title="Click para volver a reproducir"></video>
 
         <!-- Imagen fija que aparece al terminar el vídeo -->
-        <img
-            id="hero-poster"
-            class="hero-poster"
-            src="david-apuntado.png"
-            alt="David Castro"
-            onclick="replayHeroVideo()"
-            title="Click para reproducir el vídeo"
-        >
+        <img id="hero-poster" class="hero-poster" src="david-apuntado.png" alt="David Castro"
+            onclick="replayHeroVideo()" title="Click para reproducir el vídeo">
 
         <!-- Overlay oscuro con viñeta CS2 -->
         <div class="hero-overlay"></div>
@@ -54,33 +40,33 @@
 
         <!-- PANEL IZQUIERDO: Título + Countdown -->
         <div class="hero-hud-left animate-fade-down">
-            <div class="cs-badge">ÚLTIMAS NOCHES DE LIBERTAD</div>
+            <div class="cs-badge">ÚLTIMA NOCHE DE LIBERTAD</div>
             <h1 class="hero-title">
                 <span class="title-line">DESPEDIDA DE SOLTERO</span>
                 <span class="title-name">DAVID CASTRO</span>
 
-            <div class="countdown" id="countdown">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="countdown-days">00</span>
-                    <span class="countdown-label">DÍAS</span>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-days">00</span>
+                        <span class="countdown-label">DÍAS</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-hours">00</span>
+                        <span class="countdown-label">HORAS</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-minutes">00</span>
+                        <span class="countdown-label">MIN</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="countdown-seconds">00</span>
+                        <span class="countdown-label">SEG</span>
+                    </div>
                 </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="countdown-hours">00</span>
-                    <span class="countdown-label">HORAS</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="countdown-minutes">00</span>
-                    <span class="countdown-label">MIN</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="countdown-seconds">00</span>
-                    <span class="countdown-label">SEG</span>
-                </div>
-            </div>
 
-            <a href="#ruleta-section" class="cta-button" id="cta-start">
-                ABRIR CAJA DE RETOS
-            </a>
+                <a href="#ruleta-section" class="cta-button" id="cta-start">
+                    ABRIR CAJA DE RETOS
+                </a>
         </div>
 
         <!-- PANEL DERECHO: Info agente CS2 -->
@@ -88,7 +74,7 @@
             <div class="cs-agent-card">
                 <div class="cs-agent-card-left">
                     <div class="cs-agent-name">Dacaria13</div>
-                    <div class="cs-agent-title">OPERATIVO ÉLITE</div>
+                    <div class="cs-agent-title">OPERATIVO ÉLITE · DESPEDIDA 2026</div>
                 </div>
                 <div class="cs-agent-rarity">GOLD</div>
             </div>
@@ -123,35 +109,81 @@
     </header>
 
     <!-- ===== MENSAJE PARA DAVID ===== -->
-    <section id="mensaje-section" class="section">
+    <section id="mensaje-section" class="section mensaje-section">
         <div class="container">
-            <h2 class="section-title">📜 Querido David...</h2>
+
+            <!-- Cabecera decorativa -->
+            <div class="mensaje-header">
+                <div class="mensaje-header-line"></div>
+                <div class="mensaje-header-badge">
+                    <span class="mensaje-header-icon">📜</span>
+                    <span>COMUNICADO OFICIAL</span>
+                </div>
+                <div class="mensaje-header-line"></div>
+            </div>
+
+            <h2 class="section-title mensaje-titulo">Querido David...</h2>
+
             <div class="mensaje-card" id="mensaje-card">
-                <!-- 
-                    ========================================
-                    MENSAJE PARA DAVID
-                    Edita el texto dentro de este div para
-                    personalizar el mensaje que leerá David.
-                    ========================================
-                -->
+
+                <!-- Decoración esquina top-left CS -->
+                <div class="mensaje-corner mensaje-corner-tl"></div>
+                <div class="mensaje-corner mensaje-corner-tr"></div>
+                <div class="mensaje-corner mensaje-corner-bl"></div>
+                <div class="mensaje-corner mensaje-corner-br"></div>
+
+                <!-- Número de orden tipo documento clasificado -->
+                <div class="mensaje-clasificado">
+                    <span class="mensaje-clasificado-dot"></span>
+                    DOCUMENTO CLASIFICADO — OPERACIÓN DESPEDIDA 2026
+                    <span class="mensaje-clasificado-dot"></span>
+                </div>
+
+                <!-- Intro destacada -->
                 <p class="mensaje-intro">¡Enhorabuena crack! 🥳</p>
-                <p>
-                    Has llegado hasta aquí, al punto de no retorno. Después de años aguantándote
-                    (y aguantándonos), por fin alguien ha decidido ficharte de por vida: <strong>Lorena</strong>.
-                    Y nosotros, como buena familia que somos, no podíamos dejar pasar esta ocasión
-                    sin montarte la que se merece. 💥
-                </p>
-                <p>
-                    Pero esto no es una despedida cualquiera... Aquí hay <strong>RETOS</strong>.
-                    Sí, David, retos. Y no te vas a librar de ninguno. La ruleta decide,
-                    tú obedeces. Así de simple. 😈
-                </p>
-                <p>
-                    Así que prepárate, porque esta noche vas a vivir cosas que
-                    <em>ojalá pudieras olvidar</em>... pero que nosotros nos encargaremos
-                    de recordarte <strong>SIEMPRE</strong>. 📸
-                </p>
-                <p class="mensaje-firma">— Tu familia, los que te queremos de verdad 🍺</p>
+
+                <!-- Párrafos con icono lateral -->
+                <div class="mensaje-bloque">
+                    <span class="mensaje-bloque-icon">💍</span>
+                    <p>
+                        Has llegado hasta aquí, al punto de no retorno. Después de años aguantándote
+                        (y aguantándonos), por fin alguien ha decidido ficharte de por vida: <strong>Lorena</strong>.
+                        Y nosotros, como buena familia que somos, no podíamos dejar pasar esta ocasión
+                        sin montarte la que se merece. 💥
+                    </p>
+                </div>
+
+                <div class="mensaje-bloque">
+                    <span class="mensaje-bloque-icon">😈</span>
+                    <p>
+                        Pero esto no es una despedida cualquiera... Aquí hay <strong>RETOS</strong>.
+                        Sí, David, retos. Y no te vas a librar de ninguno. La ruleta decide,
+                        tú obedeces. Así de simple.
+                    </p>
+                </div>
+
+                <div class="mensaje-bloque">
+                    <span class="mensaje-bloque-icon">📸</span>
+                    <p>
+                        Así que prepárate, porque esta noche vas a vivir cosas que
+                        <em>ojalá pudieras olvidar</em>... pero que nosotros nos encargaremos
+                        de recordarte <strong>SIEMPRE</strong>.
+                    </p>
+                </div>
+
+                <!-- Separador -->
+                <div class="mensaje-separador">
+                    <span></span><span class="mensaje-separador-diamond">◆</span><span></span>
+                </div>
+
+                <!-- Firma -->
+                <div class="mensaje-firma-bloque">
+                    <p class="mensaje-firma">— Tu familia, los que te queremos de verdad 🍺</p>
+                    <div class="mensaje-firma-sello">
+                        <span class="mensaje-firma-sello-texto">SELLADO Y APROBADO</span>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -221,14 +253,31 @@
                     <div class="caja-tira" id="caja-tira"></div>
                 </div>
 
+                <!-- Barra de progreso de retos -->
+                <div class="progreso-wrapper" id="progreso-wrapper">
+                    <div class="progreso-header">
+                        <div class="progreso-label">
+                            <span class="progreso-label-icon">⚡</span>
+                            <span class="progreso-label-texto">MISIONES COMPLETADAS</span>
+                        </div>
+                        <div class="progreso-contador" id="progreso-contador">
+                            <span class="progreso-usados" id="progreso-usados">0</span>
+                            <span class="progreso-sep">/</span>
+                            <span class="progreso-total" id="progreso-total">25</span>
+                        </div>
+                    </div>
+                    <div class="progreso-track">
+                        <div class="progreso-fill" id="progreso-fill"></div>
+                        <div class="progreso-glow" id="progreso-glow"></div>
+                    </div>
+                    <p class="caja-retos-restantes" id="caja-retos-restantes"></p>
+                </div>
+
                 <!-- Botón abrir caja -->
                 <button class="spin-button" id="spin-button" onclick="girarRuleta()">
                     <span class="spin-icon">🎲</span>
                     <span class="spin-text">¡ABRIR CAJA!</span>
                 </button>
-
-                <!-- Contador de retos restantes -->
-                <p class="caja-retos-restantes" id="caja-retos-restantes"></p>
 
                 <!-- Botón reiniciar (oculto por defecto, aparece cuando hay retos usados) -->
                 <button class="reset-button" id="reset-button" onclick="reiniciarRuleta()" style="display: none;">
@@ -242,6 +291,12 @@
                     <p class="resultado-emoji" id="resultado-emoji">🎯</p>
                     <h3 class="resultado-titulo" id="resultado-titulo">¡Tu reto es...!</h3>
                     <p class="resultado-texto" id="resultado-texto"></p>
+                    <!-- Panel especial objeto sagrado (oculto por defecto) -->
+                    <div class="objeto-sagrado-panel" id="objeto-sagrado-panel">
+                        <div class="objeto-sagrado-icono">⚔️</div>
+                        <p class="objeto-sagrado-titulo">¡SE ENTREGA EL OBJETO SAGRADO!</p>
+                        <p class="objeto-sagrado-desc">Alguien del grupo tiene algo para ti. Encuéntralo, recíbelo y <strong>no lo pierdas en toda la noche</strong>. Si lo pierdes... doble reto.</p>
+                    </div>
                     <button class="resultado-close" id="resultado-close" onclick="cerrarResultado()">¡Entendido!
                         💪</button>
                 </div>
