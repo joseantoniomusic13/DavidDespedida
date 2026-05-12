@@ -614,11 +614,8 @@ body {
     box-shadow:
         0 0 30px rgba(207, 106, 50, 0.08),
         inset 0 0 40px rgba(0, 0, 0, 0.6);
-    /* NOTA: Se eliminó -webkit-mask-image porque causa
-       áreas negras en Safari/iOS en capas GPU.
-       El efecto de fade se hace con overlays posicionados. */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    /* Sin transform aquí: evita crear stacking context GPU en iOS Safari
+       que hace negro el contenido cuando la animación decelera */
 }
 
 /* Overlays de fade lateral — sustituyen al mask-image */
@@ -648,11 +645,9 @@ body {
     display: flex;
     align-items: center;
     height: 100%;
-    /* El transform translateX se controla desde JS */
-    will-change: transform;
-    /* Forzar GPU layer SOLO en la tira, no en los hijos */
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
+    /* Sin will-change ni translate3d en reposo:
+       iOS Safari crea la capa GPU solo cuando JS aplica translate3d,
+       así no hay capa "vacía" que se renderice negra al frenar */
     padding: 0 10px;
 }
 
@@ -675,8 +670,10 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
-    /* NO poner translateZ(0) aquí: el hijo en GPU dentro del padre
-       en GPU causa renderizado negro en iOS Safari al frenar */
+    /* -webkit-backface-visibility: hidden fuerza recomposición
+       correcta de cada tarjeta en WebKit cuando decelera */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 /* Brillo de color en la parte superior de cada tarjeta */
@@ -706,12 +703,17 @@ body {
     font-size: 2.2rem;
     line-height: 1;
     filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
+    /* Forzar color emoji visible en capas GPU de iOS */
+    color: #ffffff;
+    -webkit-text-fill-color: initial !important;
 }
 
 .caja-item-texto {
     font-size: 0.65rem;
     font-weight: 600;
     color: rgba(248, 250, 252, 0.75);
+    /* Forzar color de texto visible en capas GPU de iOS */
+    -webkit-text-fill-color: rgba(248, 250, 252, 0.75);
     line-height: 1.3;
     max-width: 130px;
 }
