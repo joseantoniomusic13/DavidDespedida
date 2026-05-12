@@ -608,8 +608,9 @@ body {
     /* NOTA: Se eliminó -webkit-mask-image porque causa
        áreas negras en Safari/iOS en capas GPU.
        El efecto de fade se hace con overlays posicionados. */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
+    /* NO forzar GPU layer aquí — causa negro en iOS Safari cuando
+       la animación decelera. La aceleración la gestiona .caja-tira */
+    isolation: isolate;
 }
 
 /* Overlays de fade lateral — sustituyen al mask-image */
@@ -667,7 +668,10 @@ body {
     position: relative;
     overflow: hidden;
     /* NO poner translateZ(0) aquí: el hijo en GPU dentro del padre
-       en GPU causa renderizado negro en iOS Safari al frenar */
+       en GPU causa renderizado negro en iOS Safari al frenar.
+       backface-visibility fuerza recomposición correcta en WebKit. */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 /* Brillo de color en la parte superior de cada tarjeta */
@@ -697,12 +701,16 @@ body {
     font-size: 2.2rem;
     line-height: 1;
     filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
+    /* Fuerza renderizado del color en iOS Safari */
+    color: #ffffff;
+    -webkit-text-fill-color: initial;
 }
 
 .caja-item-texto {
     font-size: 0.65rem;
     font-weight: 600;
     color: rgba(248, 250, 252, 0.75);
+    -webkit-text-fill-color: rgba(248, 250, 252, 0.75);
     line-height: 1.3;
     max-width: 130px;
 }
