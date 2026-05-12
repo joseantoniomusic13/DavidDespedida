@@ -336,7 +336,8 @@ const RETOS = [
     {
         texto: "Coge el 'objeto sagrado' y protégelo toda la noche como el anillo de Frodo ⚔️",
         emoji: "🎯",
-        color: "#fb923c"
+        color: "#fb923c",
+        objetoSagrado: true
     },
     {
         texto: "Haz entrevistas falsas de reportero de televisión a quien el grupo elija 🎤",
@@ -417,13 +418,46 @@ function borrarEstado(resetLlaves = false) {
 // ACTUALIZAR CONTADOR DE RETOS RESTANTES
 // ============================================================
 function actualizarRetosRestantes() {
-    const restantes = getRetosActivos().length;
+    const total = RETOS.length;
+    const usados = retosUsados.length;
+    const restantes = total - usados;
+    const porcentaje = total > 0 ? (usados / total) * 100 : 0;
+
+    // Texto descriptivo
     const el = document.getElementById('caja-retos-restantes');
-    if (!el) return;
-    if (restantes === 0) {
-        el.textContent = '🎉 ¡Todos los retos completados!';
-    } else {
-        el.textContent = `${restantes} reto${restantes !== 1 ? 's' : ''} restante${restantes !== 1 ? 's' : ''}`;
+    if (el) {
+        if (restantes === 0) {
+            el.textContent = '🎉 ¡Todos los retos completados! David, eres un crack.';
+        } else if (restantes === 1) {
+            el.textContent = '🔥 ¡Solo queda 1 reto! ¿Te atreves?';
+        } else {
+            el.textContent = `${restantes} reto${restantes !== 1 ? 's' : ''} restante${restantes !== 1 ? 's' : ''} — ¡No hay escapatoria!`;
+        }
+    }
+
+    // Contadores numéricos
+    const elUsados = document.getElementById('progreso-usados');
+    const elTotal = document.getElementById('progreso-total');
+    if (elUsados) elUsados.textContent = usados;
+    if (elTotal) elTotal.textContent = total;
+
+    // Barra de fill
+    const fill = document.getElementById('progreso-fill');
+    const glow = document.getElementById('progreso-glow');
+    if (fill) {
+        fill.style.width = porcentaje + '%';
+        // Color: verde cuando completo, naranja-dorado normal
+        if (porcentaje >= 100) {
+            fill.style.background = 'linear-gradient(90deg, #34d399, #10b981)';
+        } else if (porcentaje >= 75) {
+            fill.style.background = 'linear-gradient(90deg, #f59e0b, #ef4444)';
+        } else {
+            fill.style.background = 'linear-gradient(90deg, var(--accent-primary), #e4ae39)';
+        }
+    }
+    if (glow) {
+        glow.style.left = Math.max(porcentaje - 2, 0) + '%';
+        glow.style.opacity = porcentaje > 0 && porcentaje < 100 ? '1' : '0';
     }
 }
 
@@ -662,7 +696,7 @@ function iniciarAperturaCaja() {
     const duracion = 5000 + Math.random() * 1500;
     const inicio = performance.now();
     const tira = document.getElementById('caja-tira');
-    tira.style.transform = 'translate3d(0, 0, 0)';
+    tira.style.transform = 'translateX(0px)';
 
     function easeOutQuint(t) {
         return 1 - Math.pow(1 - t, 5);
@@ -676,7 +710,7 @@ function iniciarAperturaCaja() {
         const progresoSuave = easeOutQuint(progreso);
         const translateX = finalTranslate * progresoSuave;
 
-        tira.style.transform = `translate3d(${translateX}px, 0, 0)`;
+        tira.style.transform = `translateX(${translateX}px)`;
 
         // Parpadeo del indicador al pasar por cada tarjeta
         const centroVentana = ventanaW / 2;
@@ -726,6 +760,16 @@ function mostrarResultado(reto) {
     document.getElementById('resultado-texto').textContent = reto.texto;
     document.getElementById('resultado-container').classList.add('visible');
 
+    // Panel objeto sagrado
+    const panelSagrado = document.getElementById('objeto-sagrado-panel');
+    if (panelSagrado) {
+        if (reto.objetoSagrado) {
+            panelSagrado.classList.add('visible');
+        } else {
+            panelSagrado.classList.remove('visible');
+        }
+    }
+
     // Sonido de resultado ganador
     SoundFX.winner();
 
@@ -744,7 +788,7 @@ function mostrarResultado(reto) {
 
     // Marcar reto como usado y guardarlo
     retosUsados.push(reto._idx);
-    historialRetos.push(reto.texto);
+    historialRetos.push({ texto: reto.texto, emoji: reto.emoji, color: reto.color });
     guardarEstado();
     actualizarHistorial();
     actualizarRetosRestantes();
@@ -860,12 +904,20 @@ function actualizarHistorial() {
     historialDiv.classList.add('visible');
     resetBtn.style.display = 'inline-flex';
 
-    historialRetos.forEach((texto, i) => {
+    historialRetos.forEach((entry, i) => {
+        // Compatibilidad con formato antiguo (string) y nuevo (objeto)
+        const texto = typeof entry === 'string' ? entry : entry.texto;
+        const emoji = typeof entry === 'string' ? '🎯' : (entry.emoji || '🎯');
+        const color = typeof entry === 'string' ? '#f59e0b' : (entry.color || '#f59e0b');
+
         const li = document.createElement('li');
         li.className = 'historial-item';
+        li.style.setProperty('--item-color', color);
         li.innerHTML = `
             <span class="historial-numero">${i + 1}</span>
+            <span class="historial-emoji">${emojiColor(emoji)}</span>
             <span class="historial-text">${texto}</span>
+            <span class="historial-check">✓</span>
         `;
         lista.appendChild(li);
     });
