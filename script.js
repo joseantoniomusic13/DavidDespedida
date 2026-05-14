@@ -78,7 +78,7 @@ const LLAVE_MAESTRA = "kukis123";
 const LLAVE_MAESTRA_PLATINO = "kukis";
 
 // ┌──────────────────────────────────────────────────────────────┐
-// │  🔒  CONTRASEÑAS NORMALES — 33 códigos, un solo uso cada uno │
+// │  🔒  CONTRASEÑAS NORMALES — 36 códigos, un solo uso cada uno │
 // └──────────────────────────────────────────────────────────────┘
 const LLAVES = [
     "Catena13", "LoreDavid", "RushCabra", "Dust2Love", "Boda2026",
@@ -87,7 +87,7 @@ const LLAVES = [
     "BodorrioCabra", "Aria2026", "CSyAmor", "NovioMVP", "Lucena13",
     "AriaMVP", "SmokeLove", "David13", "TeamCatena", "AriaRush",
     "MirageLove", "EcoRound", "LoreAWP", "CabraMVP", "PlantTheBomb",
-    "DavidClutch", "BodaInferno", "NoviaLegend"
+    "DavidClutch", "BodaInferno", "NoviaLegend", "MeEncantaElVino", "Jumbo", "MePasoAlMinecraft"
 ];
 
 // ┌──────────────────────────────────────────────────────────────┐
